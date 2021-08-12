@@ -1,7 +1,6 @@
 //author: ClxppY
 //date started: Aug10, 2021
 //date ended: 
-//1
 
 const Discord = require('discord.js');
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
@@ -43,7 +42,7 @@ client.on('message', message => {
 
             client.users.cache.get('737178255735390308').send(message.author.username + " is calling you heres the link to the message - " + message.url);
             console.log("Trin was called by " + message.author.tag + " and dm was sent");
-            message.channel.send("I have informed trin that " + message.author.username + " is calling him. ");
+            
 
       }
 
