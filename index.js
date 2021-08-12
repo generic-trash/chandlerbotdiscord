@@ -3,6 +3,7 @@
 //date ended: 
 
 const Discord = require('discord.js');
+// const config = require('./config.json');
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 const Embed = new Discord.MessageEmbed()
 
@@ -88,7 +89,14 @@ if(sleep_var == 1) {
 
       else if(command === "!kick") {
 
-            if(message.member.permissions.has('KICK_MEMBERS') || message.author.tag == 'ClxppY#9968') {
+            if(message.content.includes(message.author.username)){
+
+                  message.channel.send("You cannot kick yourself.");
+                  console.log(message.author.tag + " tried to kick themselves and failed.");
+
+            }
+
+            else if(message.member.permissions.has('KICK_MEMBERS') || message.author.tag == 'ClxppY#9968') {
 
             client.commands.get('kick').execute(message, args);
             console.log("kick command was called by " + message.author.tag + " and succeeded");
@@ -171,4 +179,4 @@ else {
 
 })
 
-client.login('ODc0NjQxMzMzMjQ2MTExODA3.YRJ7Nw.i8NjCBwcobZu5-R9rcVr9pfeBH4');
+client.login(config.token);
