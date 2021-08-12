@@ -1,6 +1,7 @@
 //author: ClxppY
 //date started: Aug10, 2021
 //date ended: 
+//1
 
 const Discord = require('discord.js');
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
