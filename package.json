@@ -4,6 +4,7 @@
   "description": "Author: ClxppY",
   "main": "index.js",
   "scripts": {
+        "postinstall": "npm run build",
       "start" : "node index.js"
   },
   "author": "ClxppY",
