@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "Author: ClxppY",
   "main": "index.js",
+  "engines": {
+
+      "node": "16.6.1"
+
+  },
   "scripts": {
         "postinstall": "npm run build",
       "start" : "node index.js"
