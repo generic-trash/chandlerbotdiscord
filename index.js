@@ -69,6 +69,7 @@ client.on('message', message => {
       if(message.content.includes("wassup chandler") || message.content.includes("Wassup Chandler") || message.content.includes("Wassup Chand") || message.content.includes("wassup Chand") || message.content.includes("Wassup chandler") || message.content.includes("Wassup chand")) {
 
             client.commands.get('wassup').execute(message);
+            console.log("wassup chandler was called by" + message.author.tag);
 
       }
 
@@ -82,6 +83,7 @@ if(sleep_var == 1) {
 
       if(command === '!help') {
             client.commands.get('help').execute(message, args, Discord, client, Embed);
+            console.log("help command was called by " + message.author.tag);
       }
 
       else if(command === "!kick") {
@@ -89,25 +91,29 @@ if(sleep_var == 1) {
             if(message.member.permissions.has('KICK_MEMBERS') || message.author.tag == 'ClxppY#9968') {
 
             client.commands.get('kick').execute(message, args);
+            console.log("kick command was called by " + message.author.tag + " and succeeded");
             }
             else {
                   message.channel.send("You do not have the permission to use this command");
+                  console.log("kick command was called by " + message.author.tag + " and failed");
             }
       }
 
       else if(command === "!ban") {
 
-            if(message.member.permissions.has('BAN_MEMBERS')) {
+            if(message.member.permissions.has('BAN_MEMBERS') || message,author.tag("clxppY#9968")) {
 
             client.commands.get('ban').execute(message, args);
+            console.log("kick command was called by " + message.author.tag + " and succeeded");
             }
             else {
                   message.channel.send("You do not have the permission to use this command");
+                  console.log("kick command was called by " + message.author.tag + " and failed");
             }
       }
 
       else if(command === '!shutdown') {
-            if(message.author.tag == 'ClxppY#9968' || message.author.username == 'Syntax Error' || message.author.username == 'Arch | Poteto | Trin' || message.author.username == 'AryanOwnsYou') {
+            if(message.author.tag == 'ClxppY#9968' || message.author.username == 'Syntax Error' || message.author.tag == 'xXTgamerXx#9844' || message.author.username == 'AryanOwnsYou') {
                   exit();
             }
             else {
