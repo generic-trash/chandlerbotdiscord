@@ -154,7 +154,7 @@ if(sleep_var == 1) {
 
                   else if(message.mentions.members.first().permissions.has('BAN_MEMBERS') &&  message.guild.ownerID != message.author.id || message.mentions.members.first().permissions.has('ADMINISTRATOR') &&  message.guild.ownerID != message.author.id) {
 
-                        message.channel.send("I'm sorry but i cannot ban another person with kick permissions.");
+                        message.channel.send("I'm sorry but i cannot ban another person with ban permissions.");
                         console.log("kick command was called by " + message.author.tag + " and failed");
 
                   }
