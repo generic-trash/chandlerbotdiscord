@@ -136,17 +136,39 @@ if(sleep_var == 1) {
 
       else if(command === "!ban") {
 
-            if(message.author.id == message.guild.ownerID) {
+                 if(message.member.permissions.has('BAN_MEMBERS') || message.guild.ownerID == message.author.id) {
 
-                  client.commands.get('ban').execute(message, args);
-                  console.log("ban was called by " + message.author.tag + " and failed");
+                  if(message.guild.ownerID == message.author.id && message.mentions.members.first() != message.guild.ownerID) {
 
+                        client.commands.get('ban').execute(message, args);
+                        console.log("kick command was called by " + message.author.tag + " the owner of the server and succeeded");  
+
+                  }
+
+                  else if(message.content.includes(message.author.id)) {
+
+                        message.channel.send("You cannot ban yourself");
+                        console.log(message.author.tag + " tried to kick themselves and failed");
+
+                  }
+
+                  else if(message.mentions.members.first().permissions.has('BAN_MEMBERS') &&  message.guild.ownerID != message.author.id || message.mentions.members.first().permissions.has('ADMINISTRATOR') &&  message.guild.ownerID != message.author.id) {
+
+                        message.channel.send("I'm sorry but i cannot ban another person with kick permissions.");
+                        console.log("kick command was called by " + message.author.tag + " and failed");
+
+                  }
+
+                  else {
+
+                        client.commands.get('ban').execute(message, args);
+                        console.log("kick command was called by " + message.author.tag + " and succeeded"); 
+
+                  }
             }
-
             else {
-
-                  message.channel.send("Only the server owner can ban users.");
-
+                  message.channel.send("You do not have the permission to use this command");
+                  console.log("ban command was called by " + message.author.tag + " and failed");
             }
       }
 
