@@ -7,6 +7,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 const Embed = new Discord.MessageEmbed()
 
+
 const prefix = 'c';
 
 const fs = require('fs');
@@ -32,6 +33,8 @@ var sleep_var = 1;
 // if its 1 it means its alive if its 0 it means its sleeping.
 
 client.on('message', message => {
+
+      const member = message.mentions.users.first();
 
       if(message.content.includes('⠀')) {
 
@@ -87,19 +90,43 @@ if(sleep_var == 1) {
             console.log("help command was called by " + message.author.tag);
       }
 
+      else if(command == '!test') {
+
+            message.channel.send("info: " + member);
+
+      }
+
       else if(command === "!kick") {
 
-            if(message.content.includes(message.author.username)){
+            if(message.member.permissions.has('KICK_MEMBERS') || message.guild.ownerID == message.author.id) {
 
-                  message.channel.send("You cannot kick yourself.");
-                  console.log(message.author.tag + " tried to kick themselves and failed.");
+                  if(message.guild.ownerID == message.author.id && message.mentions.members.first() != message.guild.ownerID) {
 
-            }
+                        client.commands.get('kick').execute(message, args);
+                        console.log("kick command was called by " + message.author.tag + " the owner of the server and succeeded");  
 
-            else if(message.member.permissions.has('KICK_MEMBERS') || message.author.tag == 'ClxppY#9968') {
+                  }
 
-            client.commands.get('kick').execute(message, args);
-            console.log("kick command was called by " + message.author.tag + " and succeeded");
+                  else if(message.content.includes(message.author.id)) {
+
+                        message.channel.send("You cannot kick yourself");
+                        console.log(message.author.tag + " tried to kick themselves and failed");
+
+                  }
+
+                  else if(message.mentions.members.first().permissions.has('KICK_MEMBERS') &&  message.guild.ownerID != message.author.id || message.mentions.members.first().permissions.has('ADMINISTRATOR') &&  message.guild.ownerID != message.author.id) {
+
+                        message.channel.send("I'm sorry but i cannot kick another person with kick permissions.");
+                        console.log("kick command was called by " + message.author.tag + " and failed");
+
+                  }
+
+                  else {
+
+                        client.commands.get('kick').execute(message, args);
+                        console.log("kick command was called by " + message.author.tag + " and succeeded"); 
+
+                  }
             }
             else {
                   message.channel.send("You do not have the permission to use this command");
@@ -109,24 +136,39 @@ if(sleep_var == 1) {
 
       else if(command === "!ban") {
 
-            if(message.member.permissions.has('BAN_MEMBERS') || message,author.tag("clxppY#9968")) {
+            if(message.member.permissions.has('BAN_MEMBERS') || message.guild.ownerID == message.author.id) {
 
-            client.commands.get('ban').execute(message, args);
-            console.log("kick command was called by " + message.author.tag + " and succeeded");
+                  if(message.guild.ownerID == message.author.id && message.mentions.members.first() != message.guild.ownerID) {
+
+                        client.commands.get('ban').execute(message, args);
+                        console.log("ban command was called by " + message.author.tag + " the owner of the server and succeeded");  
+
+                  }
+
+                  else if(message.content.includes(message.author.id)) {
+
+                        message.channel.send("You cannot ban yourself");
+                        console.log(message.author.tag + " tried to ban themselves and failed");
+
+                  }
+
+                  else if(message.mentions.members.first().permissions.has('BAN_MEMBERS') &&  message.guild.ownerID != message.author.id || message.mentions.members.first().permissions.has('ADMINISTRATOR') &&  message.guild.ownerID != message.author.id) {
+
+                        message.channel.send("I'm sorry but i cannot ban another person with ban permissions.");
+                        console.log("ban command was called by " + message.author.tag + " and failed");
+
+                  }
+
+                  else {
+
+                        client.commands.get('ban').execute(message, args);
+                        console.log("ban command was called by " + message.author.tag + " and succeeded"); 
+
+                  }
             }
             else {
                   message.channel.send("You do not have the permission to use this command");
-                  console.log("kick command was called by " + message.author.tag + " and failed");
-            }
-      }
-
-      else if(command === '!shutdown') {
-            if(message.author.tag == 'ClxppY#9968' || message.author.username == 'Syntax Error' || message.author.tag == 'xXTgamerXx#9844' || message.author.username == 'AryanOwnsYou') {
-                  exit();
-            }
-            else {
-            message.channel.send("Ur not ClxppY! I dont answer to you!");
-            console.log("Shutdown request failed called by " + message.author.tag);
+                  console.log("ban command was called by " + message.author.tag + " and failed");
             }
       }
 
@@ -179,4 +221,4 @@ else {
 
 })
 
-client.login(config.token);
+client.login(process.env.CHANDLER_TOKEN);
